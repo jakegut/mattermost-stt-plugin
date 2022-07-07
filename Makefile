@@ -137,6 +137,14 @@ dist:	server webapp bundle
 deploy: dist
 	./build/bin/pluginctl deploy $(PLUGIN_ID) dist/$(BUNDLE_NAME)
 
+.PHONY: build-stt
+build-stt:
+	docker build -t jakegut/stt ./stt
+
+.PHONY: run-stt
+run-stt:
+	docker run -it --rm -p 8080:8080 jakegut/stt -addr 0.0.0.0:8080
+
 ## Builds and installs the plugin to a server, updating the webapp automatically when changed.
 .PHONY: watch
 watch: server bundle

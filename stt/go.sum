@@ -1,0 +1,7 @@
+github.com/asticode/go-asticoqui v0.1.0 h1:vxdDaFIfq04U0oQXJ7z1z+HC/i1/qBf+a0y4q+azBsY=
+github.com/asticode/go-asticoqui v0.1.0/go.mod h1:HuUAasCpAyPjOQSqoY92VeBMYLkQ/Hu7Ij3aOhQrwlk=
+github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927/go.mod h1:h/aW8ynjgkuj+NQRlZcDbAbM1ORAbXjXX77sX7T289U=
+github.com/cryptix/wav v0.0.0-20180415113528-8bdace674401 h1:rZ+OHHkwlkYALTEd6AYXSL92K/SEc4fkz+TfweIwu6A=
+github.com/cryptix/wav v0.0.0-20180415113528-8bdace674401/go.mod h1:knK8fd+KPlGGqSUWogv1DQzGTwnfUvAi0cIoWyOG7+U=
+github.com/gorilla/websocket v1.5.0 h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWmnc=
+github.com/gorilla/websocket v1.5.0/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
