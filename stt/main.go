@@ -13,7 +13,11 @@ import (
 
 var addr = flag.String("addr", "localhost:8080", "http service address")
 
-var upgrader = websocket.Upgrader{} // use default options
+var upgrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
+} // use default options
 
 var model *asticoqui.Model
 
@@ -21,8 +25,8 @@ func byteaToInt16a(bytes []byte) []int16 {
 	res := make([]int16, len(bytes)/2)
 	for i, j := 0, 0; i < len(bytes)-1; i += 2 {
 		var val int16
-		val |= int16(bytes[i]) << 8
-		val |= int16(bytes[i+1])
+		val |= int16(bytes[i])
+		val |= int16(bytes[i+1]) << 8
 		res[j] = val
 		j += 1
 		// res = append(res, int16(bytes[i]))
@@ -64,8 +68,8 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	ticker := time.NewTicker(500 * time.Millisecond)
-	defer stream.Discard()
 	defer c.Close()
+	defer stream.Discard()
 	disconnect := make(chan bool)
 	msg := make(chan []byte)
 	go message(c, msg, disconnect)
@@ -106,9 +110,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	if scorer, ok := os.LookupEnv("SCORER_MODEL_PATH"); ok {
+		err = model.EnableExternalScorer(scorer)
+		if err != nil {
+			panic(err)
+		}
+	}
 	log.SetFlags(0)
 	http.HandleFunc("/echo", echo)
-	fs := http.FileServer(http.Dir("./static"))
-	http.Handle("/", fs)
 	log.Fatal(http.ListenAndServe(*addr, nil))
 }
